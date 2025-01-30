@@ -12,10 +12,14 @@ function ProductList(props) {
 
     const dispatch = useDispatch();
 
-    const cartItems=useSelector(state => state.cart.items);
+    const cartItems = useSelector(state => state.cart.items);
+    const [totalItems, setTotalItems] = useState(0);
+
+    // Update totalItems whenever cartItems changes
     useEffect(() => {
-        
-    }, []);
+        const total = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+        setTotalItems(total);
+    }, [cartItems]); // Runs every time cartItems changes
     
     const handleCartClick = (e) => {
         e.preventDefault();
@@ -43,12 +47,6 @@ function ProductList(props) {
        const itemInCart = (itemName) => {
         return cartItems.some((product) => product.name === itemName);
     }  
-
-      const totalItems = () => {
-        return cartItems.reduce((total, item) => total + item.quantity, 0);
-    };   
-
-    const total = totalItems();
 
     const plantsArray = [
         {
@@ -304,7 +302,7 @@ function ProductList(props) {
                         </svg>
                         <span style={{position:"absolute"}}>
                             <p className='cart-total' >
-                                {totalItems()}
+                                {totalItems}
                             </p>
                         </span>
                     </h1>
