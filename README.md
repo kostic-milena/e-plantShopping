@@ -1,1 +1,1 @@
-# coding-project-template
+# e-plantShoping project built in React
